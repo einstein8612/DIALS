@@ -2,8 +2,8 @@ import time
 import numpy as np
 import multiprocessing as mp
 import multiprocessing.connection
-from multiprocessing import Pool, Process
-# from multiprocessing.pool import ThreadPool as Pool
+from multiprocessing import Process
+from multiprocessing.pool import ThreadPool as Pool
 
 def train_single_agent(agent_id, agent_dict, agent, env, training_steps=1.0e+5):
     
