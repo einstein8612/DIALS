@@ -162,8 +162,8 @@ class GlobalTraffic(TrafficLightGridBitmapEnv):
     # override
     def step(self, rl_actions):
         
-        rl_actions = [action.item() for action in rl_actions]
-        rl_actions = int("".join(str(i) for i in rl_actions),2)
+        # rl_actions = [action.item() for action in rl_actions]
+        # rl_actions = int("".join(str(i) for i in rl_actions),2)
         # states, rewards, done, _ = super().step(rl_actions)
         # FOR TESTING THE ACTUATED TL CONTROLLERS COMMENT THE LINE ABOVE AND UNCOMMENT THE LINE BELOW
         states, rewards, done, _ = super().step(None)
