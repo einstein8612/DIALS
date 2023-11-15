@@ -32,11 +32,11 @@ mode=""
 PS3="Select a mode please: "
 while [ -z $mode ]; do
     select selected_mode in "Run" "Run w/ Bindings (Dev Mode)" "Compile" "Compile & Run" Quit; do
-        if [ $REPLY -eq 3 ]
+        if [ $REPLY -eq 5 ]
         then
             echo "Bye!"
             exit 0
-        elif [ $REPLY -gt 3 ] || [ $REPLY -lt 1 ]
+        elif [ $REPLY -gt 5 ] || [ $REPLY -lt 1 ]
         then
             echo "Unlisted mode, please try again"
             continue
