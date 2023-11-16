@@ -11,7 +11,7 @@ From: python:3.6
     apt-get install -y git cmake python3 g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev python3-dev swig default-jdk maven libeigen3-dev
     git clone --recursive https://github.com/eclipse/sumo
     export SUMO_HOME="$PWD/sumo"
-    mkdir sumo/build/cmake-build && cd sumo/build/cmake-build
+    mkdir -p sumo/build/cmake-build && cd sumo/build/cmake-build
     cmake ../..
     make -j$(nproc)
     cd /
