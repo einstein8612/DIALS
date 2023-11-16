@@ -203,6 +203,9 @@ class Experiment(object):
             end = time.time()
             print('Train time:', end-start)
 
+        self.global_simulator.sim_params.render = True
+        final_eval = self.evaluate(total_steps)
+        print(f"Final evaluation: {final_eval}")
         # self.trainer.close()
 
     def collect_data(self, dataset_size, data_path):
