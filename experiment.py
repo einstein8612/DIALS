@@ -178,12 +178,14 @@ class Experiment(object):
                 train_steps = influence_train_freq
 
         for step in range(0, total_steps+1, train_steps):
+            print(f"Currently running step: {step}")
 
             if self.parameters['simulator'] == 'distributed' and not self.parameters['untrained_influence']:
                 if step % influence_train_freq == 0:
                     start = time.time()
                     self.collect_data(self.dataset_size, self.data_path)
                     initial_loss, final_loss = self.trainer.train_influence()
+                    print(f"Initial influence loss: {initial_loss}")
                     self._run.log_scalar('influence loss', initial_loss, step)
                     self._run.log_scalar('influence loss', final_loss, step)
                     end = time.time()
@@ -198,6 +200,7 @@ class Experiment(object):
 
             end = time.time()
             print('Evaluate time:', end-start)
+            print("Training...")
             start = time.time()
             self.agents = self.trainer.train(train_steps)
             end = time.time()
@@ -270,6 +273,7 @@ class Experiment(object):
         self._run.log_scalar('mean episodic return', np.mean(episode_rewards), step)
         print(np.mean(episode_rewards))
         print('Done!')
+        return np.mean(episode_rewards)
         
         
 
