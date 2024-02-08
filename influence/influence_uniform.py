@@ -45,9 +45,9 @@ class InfluenceUniform(object):
         return loss
 
     def _test(self, inputs, targets):
-        inputs = torch.FloatTensor(inputs)
-        targets = torch.FloatTensor(targets)
-        logits = torch.log(torch.FloatTensor(self.probs*inputs.shape[0]))
+        inputs = torch.cuda.FloatTensor(inputs)
+        targets = torch.cuda.FloatTensor(targets)
+        logits = torch.log(torch.cuda.FloatTensor(self.probs*inputs.shape[0]))
         if targets.shape[-1] == self.n_sources*self.output_size:
             targets = torch.argmax(targets.view(-1, self.n_sources, self.output_size), dim=2).long().flatten()
         else:

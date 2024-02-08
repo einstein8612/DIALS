@@ -31,12 +31,12 @@ done
 mode=""
 PS3="Select a mode please: "
 while [ -z $mode ]; do
-    select selected_mode in "Run" "Run w/ Bindings (Dev Mode)" "Compile" "Compile & Run" Quit; do
-        if [ $REPLY -eq 5 ]
+    select selected_mode in "Run" "Run w/ Bindings (Dev Mode)" "Compile" "Compile & Run" "Compile (sandbox)" Quit; do
+        if [ $REPLY -eq 6 ]
         then
             echo "Bye!"
             exit 0
-        elif [ $REPLY -gt 5 ] || [ $REPLY -lt 1 ]
+        elif [ $REPLY -gt 6 ] || [ $REPLY -lt 1 ]
         then
             echo "Unlisted mode, please try again"
             continue
@@ -50,13 +50,13 @@ done
 case $mode in
 
   1)
-    echo "Running: \"singularity run --writable-tmpfs DIALS.sif python experiment.py with ./${config}\""
-    singularity run --writable-tmpfs DIALS.sif python experiment.py with ./${config}
+    echo "Running: \"singularity run --writable-tmpfs --nv --nvccli DIALS.sif python experiment.py with ./${config}\""
+    singularity run --writable-tmpfs --nv --nvccli DIALS.sif python experiment.py with ./${config}
     ;;
 
   2)
-    echo "Running: \"singularity run --writable-tmpfs --bind ./simulators:/simulators/ DIALS.sif python experiment.py with ./${config}\""
-    singularity run --writable-tmpfs --bind ./simulators:/simulators DIALS.sif python experiment.py with ./${config}
+    echo "Running: \"singularity run  --writable-tmpfs --nv --nvccli --bind ./simulators:/simulators/ DIALS.sif python experiment.py with ./${config}\""
+    singularity run --writable-tmpfs --nv --nvccli --bind ./simulators:/simulators DIALS.sif python experiment.py with ./${config}
     ;;
 
   3)
@@ -73,6 +73,12 @@ case $mode in
     echo "Running!"
     echo "Running: \"singularity run --writable-tmpfs DIALS.sif python experiment.py with ./${config}\""
     singularity run --writable-tmpfs DIALS.sif python experiment.py with ./${config}
+    ;;
+
+  5)
+    echo "Compiling (sandbox) (This will take a while)"
+    echo "Running: \"sudo singularity build --sandbox sandbox/ DIALS.def\""
+    sudo singularity build --sandbox sandbox/ DIALS.def
     ;;
 esac
 

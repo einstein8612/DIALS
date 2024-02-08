@@ -104,6 +104,8 @@ class Experiment(object):
                 self.parameters['hidden_size_2'],
                 1)
         
+        self.policy = policy.cuda()
+
         self.agents = []
         for agent_id in self.parameters['learning_agent_ids']:
             save_path =  os.path.join('saved_policies', str(self.parameters['env']), str(self.parameters['simulator']), str(agent_id))
@@ -196,7 +198,7 @@ class Experiment(object):
                     agent.save_policy()
                 self.evaluate(step)
             print('TRAIN')
-            print(psutil.Process().memory_info().rss / (1024 * 1024))
+            print('RAM: ', psutil.Process().memory_info().rss / (1024 * 1024))
 
             end = time.time()
             print('Evaluate time:', end-start)
@@ -268,7 +270,7 @@ class Experiment(object):
             obs = self.global_simulator.reset()
             episode_rewards.append(reward_sum)
             
-            print(psutil.Process().memory_info().rss / (1024 * 1024))
+            print('RAM: ', psutil.Process().memory_info().rss / (1024 * 1024))
 
         self._run.log_scalar('mean episodic return', np.mean(episode_rewards), step)
         print(np.mean(episode_rewards))

@@ -93,6 +93,7 @@ class InfluenceNetwork(object):
         self.model = Network(self.input_size, self._hidden_memory_size,
                              self.n_sources, self.output_size, self.recurrent,
                              self._seq_len, self.truncated)
+        self.model.to(torch.device("cuda:0" if torch.cuda.is_available() else "cpu"))
         # self.model.apply(init_weights)
         self.loss_function = nn.CrossEntropyLoss()
         if self.output_size == 1:
@@ -130,10 +131,10 @@ class InfluenceNetwork(object):
     
     def predict(self, obs):
         if self.recurrent:
-            inputs = torch.FloatTensor(obs).view(1,1,-1)
+            inputs = torch.cuda.FloatTensor(obs).view(1,1,-1)
         else:
             self.stack(obs)
-            inputs = torch.FloatTensor(self.stacked_obs)
+            inputs = torch.cuda.FloatTensor(self.stacked_obs)
         _, probs = self.model(inputs)
         return probs[0]
     
@@ -181,8 +182,8 @@ class InfluenceNetwork(object):
         return train_inputs, train_targets, test_inputs, test_targets
 
     def _train(self, train_inputs, train_targets, test_inputs, test_targets):
-        seqs = torch.FloatTensor(train_inputs)
-        targets = torch.FloatTensor(train_targets)
+        seqs = torch.cuda.FloatTensor(train_inputs)
+        targets = torch.cuda.FloatTensor(train_targets)
         for e in range(self.num_epochs):
             permutation = torch.randperm(len(seqs))
             if e % 50 == 0:
@@ -196,6 +197,7 @@ class InfluenceNetwork(object):
                 seqs_batch = seqs[indices]
                 targets_batch = targets[indices]
                 self.model.hidden_cell = torch.zeros(1, self._batch_size, self._hidden_memory_size)
+                seqs_batch.to(torch.device("cuda:0" if torch.cuda.is_available() else "cpu"))
                 logits, probs = self.model(seqs_batch)
                 if self.output_size > 1:
                     targets_batch = torch.argmax(targets_batch.view(-1, self.n_sources, self.output_size), dim=2).long().flatten()
@@ -213,8 +215,8 @@ class InfluenceNetwork(object):
         return initial_loss, final_loss
 
     def _test(self, inputs, targets):
-        inputs = torch.FloatTensor(inputs)
-        targets = torch.FloatTensor(targets)
+        inputs = torch.cuda.FloatTensor(inputs)
+        targets = torch.cuda.FloatTensor(targets)
         loss = 0
         self.model.hidden_cell = torch.zeros(1, len(inputs), self._hidden_memory_size)
         logits, probs = self.model(inputs)

@@ -9,6 +9,12 @@ From: python:3.6
 %post
     apt-get update -y
     apt-get install -y git cmake python3 g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev python3-dev swig default-jdk maven libeigen3-dev
+
+    wget https://developer.download.nvidia.com/compute/cuda/repos/wsl-ubuntu/x86_64/cuda-keyring_1.1-1_all.deb
+    dpkg -i cuda-keyring_1.1-1_all.deb
+    apt-get update
+    apt-get -y install cuda-toolkit-12-1
+
     git clone --recursive https://github.com/eclipse/sumo
     export SUMO_HOME="$PWD/sumo"
     mkdir -p sumo/build/cmake-build && cd sumo/build/cmake-build
@@ -30,7 +36,7 @@ From: python:3.6
     pip install pyglet
     pip install imutils
     pip install scipy
-    pip install torch==1.8.1
+    pip install https://download.pytorch.org/whl/cu111/torch-1.8.1%2Bcu111-cp36-cp36m-linux_x86_64.whl
     pip install pathos
     pip install psutil
     pip install opencv-python==4.5.3.56

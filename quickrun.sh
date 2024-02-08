@@ -1,0 +1,1 @@
+singularity run --writable-tmpfs --nv --nvccli --bind ./simulators:/simulators DIALS.sif python experiment.py with ./configs/traffic/global.yaml
