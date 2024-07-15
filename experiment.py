@@ -225,17 +225,17 @@ class Experiment(object):
                 self.evaluate(step)
 
             end = time.time()
-            print("Evaluate time:", end - start)
+            print(f"[INF] Evaluate time for step {step}:", end - start)
             start = time.time()
             self.agents = self.trainer.train(train_steps)
             end = time.time()
-            print("Train time:", end - start)
+            print(f"[INF] Train time for step {step}:", end - start)
 
         # self.trainer.close()
 
     def collect_data(self, dataset_size, data_path):
         """Collect data from global simulator"""
-        print("Collecting data from global simulator...")
+        print("[INF] Collecting data from global simulator...")
         n_steps = 0
         # copy agent to not alter hidden memory
         agents = deepcopy(self.agents)
@@ -259,7 +259,7 @@ class Experiment(object):
                 infs.append(info["infs"])
             log(dset, infs, data_path, self.parameters["learning_agent_ids"])
             obs = self.global_simulator.reset()
-        print("Done!")
+        print("[INF] Finished collecting data from global simulator.")
 
     def evaluate(self, step, collect_data=False):
         """Return mean sum of episodic rewards) for given model"""
@@ -268,7 +268,7 @@ class Experiment(object):
         # copy agent to not altere hidden memory
         agents = deepcopy(self.agents)
         num_learning_agents = len(self.parameters["learning_agent_ids"])
-        print("Evaluating policy on global simulator...")
+        print("[INF] Evaluating policy on global simulator...")
         obs = self.global_simulator.reset(restart=True)
         while n_steps < self.parameters["eval_steps"]:
             reward_sum = np.array([0.0] * num_learning_agents)
@@ -291,8 +291,7 @@ class Experiment(object):
             episode_rewards.append(reward_sum)
 
         self._run.log_scalar("mean episodic return", np.mean(episode_rewards), step)
-        print("Episode Rewards:", np.mean(episode_rewards))
-        print("Done!")
+        print(f"[INF] Episode Rewards for step {step}:", np.mean(episode_rewards))
 
     def print_results(self, episode_return, episode_step, global_step, episode):
         """

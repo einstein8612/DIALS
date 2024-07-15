@@ -42,7 +42,7 @@ class DataCollector(object):
         """
         Runs the data collection process.
         """
-        print('collecting data...')
+        print('[INF] Collecting data...')
         # if self.num_workers > 1:
         if load:
             self.sim.load_influence_model()
@@ -71,7 +71,7 @@ class DataCollector(object):
             if step_output['done'][0]:
                 episodic_returns.append(episodic_return)
                 episodic_return = 0
-        print('Done!')
+        print('[INF] Finished collecting data.')
         self.seed += self.num_workers # Changing seed for the next run. Last iteration seed was self.seed+[0:self.num_workers]
         mean_episodic_return = np.mean(episodic_returns)
         return mean_episodic_return
