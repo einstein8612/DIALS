@@ -3,6 +3,7 @@ import multiprocessing as mp
 import numpy as np
 import random
 
+
 class VecEnv(object):
     """
     Creates multiple instances of an environment to run in parallel.
@@ -11,23 +12,26 @@ class VecEnv(object):
     """
 
     def __init__(self, env, simulator, num_workers, seed, influence_model=None):
-        print('Total number of CPUs {}'.format(mp.cpu_count()))
+        print("Total number of CPUs {}".format(mp.cpu_count()))
         if num_workers > mp.cpu_count():
             num_workers = mp.cpu_count()
-        print("Number of workers {}. ".format(num_workers))        
-        # Random seed needs to be set different for each worker (seed + worker_id). Otherwise multiprocessing takes 
+        print("Number of workers {}. ".format(num_workers))
+        # Random seed needs to be set different for each worker (seed + worker_id). Otherwise multiprocessing takes
         # the current system time, which is the same for all workers!
-        self.workers = [Worker(env, simulator, seed + worker_id, influence_model) for worker_id in range(num_workers)]
+        self.workers = [
+            Worker(env, simulator, seed + worker_id, influence_model)
+            for worker_id in range(num_workers)
+        ]
 
     def reset(self):
         """
         Resets each of the environment instances
         """
         for worker in self.workers:
-            worker.child.send(('reset', None))
+            worker.child.send(("reset", None))
         obs = []
         for worker in self.workers:
-            o =  worker.child.recv()
+            o = worker.child.recv()
             obs.append(o)
         return obs
 
@@ -36,9 +40,15 @@ class VecEnv(object):
         Takes an action in each of the enviroment instances
         """
         for worker, action in zip(self.workers, actions):
-            worker.child.send(('step', action))
-        output = {'obs': [], 'reward': [], 'done': [], 'prev_action': [],
-                  'dset': [], 'infs': []}
+            worker.child.send(("step", action))
+        output = {
+            "obs": [],
+            "reward": [],
+            "done": [],
+            "prev_action": [],
+            "dset": [],
+            "infs": [],
+        }
         obs = []
         reward = []
         done = []
@@ -55,7 +65,7 @@ class VecEnv(object):
         """
         Returns the dimensions of the environment's action space
         """
-        self.workers[0].child.send(('action_space', None))
+        self.workers[0].child.send(("action_space", None))
         action_space = self.workers[0].child.recv()
         return action_space
 
@@ -64,12 +74,11 @@ class VecEnv(object):
         Closes each of the threads in the multiprocess
         """
         for worker in self.workers:
-            worker.child.send(('close', None))
+            worker.child.send(("close", None))
 
     def load_influence_model(self):
         """
         Loads the newest influence model
         """
         for worker in self.workers:
-            worker.child.send(('load', None))
-        
+            worker.child.send(("load", None))
