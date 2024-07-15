@@ -225,11 +225,11 @@ class Experiment(object):
                 self.evaluate(step)
 
             end = time.time()
-            print(f"[INF] Evaluate time for step {step}:", end - start)
+            print(f"[INF] Evaluate time for step {step}/{total_steps}:", end - start)
             start = time.time()
             self.agents = self.trainer.train(train_steps)
             end = time.time()
-            print(f"[INF] Train time for step {step}:", end - start)
+            print(f"[INF] Train time for step {step}/{total_steps}:", end - start)
 
         # self.trainer.close()
 
@@ -268,7 +268,7 @@ class Experiment(object):
         # copy agent to not altere hidden memory
         agents = deepcopy(self.agents)
         num_learning_agents = len(self.parameters["learning_agent_ids"])
-        print("[INF] Evaluating policy on global simulator...")
+        print(f"[INF] Evaluating policy on global simulator for step {step}...")
         obs = self.global_simulator.reset(restart=True)
         while n_steps < self.parameters["eval_steps"]:
             reward_sum = np.array([0.0] * num_learning_agents)
