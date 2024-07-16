@@ -39,9 +39,9 @@ parameters:
         recurrent: False
         episode_length: 300
         data_path: './influence/data/traffic/'
-        lr: 1.0e-3
-        num_epochs: 10
-        batch_size: 120
+        lr: 1.0e-4
+        num_epochs: 100
+        batch_size: 128
         hidden_memory_size: 128
         input_size: 36
         output_size: 1
