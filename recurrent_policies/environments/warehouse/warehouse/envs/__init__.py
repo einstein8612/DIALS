@@ -1,0 +1,3 @@
+from warehouse.envs.mini_warehouse import MiniWarehouse
+from warehouse.envs.mini_warehouse_memory import MiniWarehouseMemory
+from warehouse.envs.mini_warehouse_mini import MiniWarehouseMini

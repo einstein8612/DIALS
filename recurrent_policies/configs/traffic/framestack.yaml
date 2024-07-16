@@ -1,0 +1,21 @@
+parameters:
+    main:
+        # Common hyperparameters
+        simulator: 'global'
+        env: 'warehouse'
+        obs_size: 73
+        rollout_steps: 8
+        num_actions: 4
+        name: 'mini-warehouse'
+        hidden_size: 640
+        hidden_size_2: 256
+        seq_len: 1
+        num_workers: 8
+        epsilon: 0.1
+        beta: 0.01
+        render: False
+        policy: 'FNNFSPolicy'
+        load_policy: False
+        framestack: True
+        n_stack: 8
+        dset: [49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72]

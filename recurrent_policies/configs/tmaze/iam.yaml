@@ -1,0 +1,23 @@
+parameters:
+    main:
+        env: 'tmaze'
+        obs_size: 101
+        rollout_steps: 8
+        num_actions: 4
+        name: 'tmaze'
+        hidden_size: 128
+        hidden_size_2: 64
+        hidden_memory_size: 16
+        seq_len: 32
+        num_workers: 8
+        epsilon: 0.1
+        beta: 0.01
+        render: False
+        policy: 'IAMGRUPolicy'
+        load_policy: False
+        framestack: False
+        total_steps: 5.0e+5
+        eval_freq: 1.0e+4
+        # dset: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+        dset: [100]
+        dset_size: 0

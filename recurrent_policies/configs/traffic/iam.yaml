@@ -1,0 +1,25 @@
+parameters:
+    main:
+        # Common hyperparameters
+        simulator: 'global'
+        env: 'traffic'
+        obs_size: 30
+        rollout_steps: 32
+        num_actions: 2
+        name: 'traffic'
+        hidden_size: 128
+        hidden_size_2: 128
+        hidden_memory_size: 128 
+        seq_len: 32
+        num_workers: 8
+        epsilon: 0.1
+        beta: 0.01
+        render: False
+        policy: 'IAMGRUPolicy'
+        load_policy: False
+        framestack: False            
+        dset_size: 0
+        dset: [0, 1, 13, 14, 15, 16, 28, 29]
+        # dset: [13, 14, 28, 29]
+        total_steps: 1.0e+6
+        # dset: null

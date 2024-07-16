@@ -1,0 +1,20 @@
+parameters:
+    main:
+        env: 'treemaze'
+        obs_size: 78
+        rollout_steps: 8
+        num_actions: 3
+        name: 'treemaze'
+        hidden_size: 128
+        hidden_size_2: 64
+        seq_len: 32
+        num_workers: 8
+        epsilon: 0.1
+        beta: 0.01
+        render: False
+        policy: 'GRUPolicy'
+        load_policy: False
+        framestack: False
+        total_steps: 5.0e+5
+        eval_freq: 1.0e+4
+        save_frequency: 1.0e+4

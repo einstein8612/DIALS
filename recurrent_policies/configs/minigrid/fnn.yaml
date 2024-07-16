@@ -1,0 +1,21 @@
+parameters:
+    main:
+        # Common hyperparameters
+        simulator: 'global'
+        env: 'minigrid'
+        obs_size: 49
+        rollout_steps: 128
+        num_actions: 6
+        name: 'MiniGrid-RedBlueDoors-6x6-v0'
+        hidden_size: 192
+        hidden_size_2: 256
+        seq_len: 1
+        num_workers: 8
+        epsilon: 0.1
+        beta: 0.01
+        render: False
+        policy: 'FNNPolicy'
+        load_policy: False
+        framestack: False
+        total_steps: 5.0e+5
+        eval_freq: 5.0e+4

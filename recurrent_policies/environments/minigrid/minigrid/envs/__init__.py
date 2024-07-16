@@ -1,0 +1,1 @@
+from minigrid.envs.memory import MemoryEnv, MemoryS11, MemoryS13Random, MemoryS13, MemoryS17Random, MemoryS7, MemoryS9

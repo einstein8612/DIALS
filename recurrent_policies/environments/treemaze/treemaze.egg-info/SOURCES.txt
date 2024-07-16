@@ -1,0 +1,6 @@
+setup.py
+treemaze.egg-info/PKG-INFO
+treemaze.egg-info/SOURCES.txt
+treemaze.egg-info/dependency_links.txt
+treemaze.egg-info/requires.txt
+treemaze.egg-info/top_level.txt
