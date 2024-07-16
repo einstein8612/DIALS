@@ -217,7 +217,7 @@ class Experiment(object):
                     self._run.log_scalar("influence loss", initial_loss, step)
                     self._run.log_scalar("final loss", final_loss, step)
                     end = time.time()
-                    print(f"[INF] Influence train time: {end - start:.3f} ms")
+                    print(f"[INF] Influence train time: {end - start:.3f} s")
             start = time.time()
             if step % eval_freq == 0:
                 for agent in self.agents:
@@ -225,11 +225,11 @@ class Experiment(object):
                 self.evaluate(step)
 
             end = time.time()
-            print(f"[INF] Evaluate time for step {step}/{total_steps}: {end - start:.3f} ms")
+            print(f"[INF] Evaluate time for step {step}/{total_steps}: {end - start:.3f} s")
             start = time.time()
             self.agents = self.trainer.train(train_steps)
             end = time.time()
-            print(f"[INF] Train time for step {step}/{total_steps}: {end - start:.3f} ms")
+            print(f"[INF] Train time for step {step}/{total_steps}: {end - start:.3f} s")
 
         # self.trainer.close()
 
