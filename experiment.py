@@ -215,7 +215,7 @@ class Experiment(object):
                     self.collect_data(self.dataset_size, self.data_path)
                     initial_loss, final_loss = self.trainer.train_influence()
                     self._run.log_scalar("influence loss", initial_loss, step)
-                    self._run.log_scalar("influence loss", final_loss, step)
+                    self._run.log_scalar("final loss", final_loss, step)
                     end = time.time()
                     print("Influence train time:", end - start)
             start = time.time()
