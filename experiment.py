@@ -217,7 +217,7 @@ class Experiment(object):
                     self._run.log_scalar("influence loss", initial_loss, step)
                     self._run.log_scalar("final loss", final_loss, step)
                     end = time.time()
-                    print("Influence train time:", end - start)
+                    print(f"[INF] Influence train time: {end - start:.3f} ms")
             start = time.time()
             if step % eval_freq == 0:
                 for agent in self.agents:
@@ -225,11 +225,11 @@ class Experiment(object):
                 self.evaluate(step)
 
             end = time.time()
-            print(f"[INF] Evaluate time for step {step}/{total_steps}:", end - start)
+            print(f"[INF] Evaluate time for step {step}/{total_steps}: {end - start:.3f} ms")
             start = time.time()
             self.agents = self.trainer.train(train_steps)
             end = time.time()
-            print(f"[INF] Train time for step {step}/{total_steps}:", end - start)
+            print(f"[INF] Train time for step {step}/{total_steps}: {end - start:.3f} ms")
 
         # self.trainer.close()
 
@@ -291,7 +291,7 @@ class Experiment(object):
             episode_rewards.append(reward_sum)
 
         self._run.log_scalar("mean episodic return", np.mean(episode_rewards), step)
-        print(f"[INF] Episode Rewards for step {step}:", np.mean(episode_rewards))
+        print(f"[INF] Episode Rewards for step {step}: {np.mean(episode_rewards):.3f}")
 
     def print_results(self, episode_return, episode_step, global_step, episode):
         """

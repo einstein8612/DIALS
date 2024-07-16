@@ -23,3 +23,4 @@
 - FNNPolicy is used since past doesnt affect future in traffic light control
 
 - Rewards are different in DIALS paper than in IALS; Our benchmark works for IALS
+- What is the purpose of DIALS?
