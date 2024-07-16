@@ -11,6 +11,7 @@
 - How do we improve DIALS for our project?
 - Possible ideas:
   - Add more context like time of day, weather etc. -> see comment in paper
+    - Local regions in paper are the same but can be made different
   - Add autonomous vehicles that regulate traffic as well
 
 - Influence sources = External variables aka cars coming into the traffic section
@@ -20,3 +21,5 @@
 - The paper mentions currently influence sources are discrete but can be made continuous
 
 - FNNPolicy is used since past doesnt affect future in traffic light control
+
+- Rewards are different in DIALS paper than in IALS; Our benchmark works for IALS
