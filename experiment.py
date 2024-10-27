@@ -156,7 +156,7 @@ class Experiment(object):
         if self.parameters["simulator"] == "distributed":
 
             self.data_path = os.path.join(
-                parameters["influence"]["data_path"], str(_run._id)
+                parameters["influence"]["data_path"], str(_run._id), "/"
             )
             self.dataset_size = parameters["influence"]["dataset_size"]
 
