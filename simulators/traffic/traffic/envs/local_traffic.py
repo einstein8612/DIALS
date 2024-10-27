@@ -99,7 +99,7 @@ class LocalTraffic(TrafficLightGridBitmapEnv):
 
         env_params = EnvParams(horizon=horizon, additional_params=additional_env_params)
         sim_params = SumoParams(
-            render=False,
+            render=True,
             restart_instance=False,
             sim_step=1,
             print_warnings=False,
